@@ -209,11 +209,8 @@ function convert2Coins(num, coins) {
     while (num - coins[i] >= 0) {
       num -= coins[i];
       coinPouch.push(coins[i]);
-      console.log(num);
     }
   }
-
-  console.log(num);
 
   return coinPouch;
 }
@@ -343,8 +340,8 @@ function subsetN(array, array_size) {
     result = [];
     j = array.length - 1;
     do {
-      if ((i & (1 << i)) !== 0) {
-        result.push(array[i]);
+      if ((i & (1 << j)) !== 0) {
+        result.push(array[j]);
       }
     } while (j--);
 
@@ -356,4 +353,185 @@ function subsetN(array, array_size) {
   return result_set;
 }
 
+console.log("21.");
 console.log(subsetN([1, 2, 3], 2));
+
+// 22. Write a JavaScript function that accepts two arguments, a string and a letter and the function will count the number of occurrences of the specified letter within the string.
+
+str = "microsoft.com";
+let target = "o";
+
+function countOcurrences(str, target) {
+  let uniqueObject = {};
+  let newStr = [];
+  for (i = 0; i < str.length; i++) {
+    if (Object.keys(uniqueObject).indexOf(str[i]) >= 0) {
+      uniqueObject[str[i]] += 1;
+    } else {
+      uniqueObject[str[i]] = 1;
+      newStr.push(str[i]);
+    }
+  }
+
+  return uniqueObject[target];
+}
+
+console.log("22. ", countOcurrences(str, target));
+
+// 23. Write a JavaScript function to find the first not repeated character.
+
+str = "abacddbec";
+target = "e";
+
+function findNonDuplicate(str, target) {
+  let uniqueObject = {};
+  let newStr = [];
+  for (i = 0; i < str.length; i++) {
+    if (Object.keys(uniqueObject).indexOf(str[i]) >= 0) {
+      uniqueObject[str[i]] += 1;
+    } else {
+      uniqueObject[str[i]] = 1;
+      newStr.push(str[i]);
+    }
+  }
+  for (i = 0; i < str.length; i++) {
+    if (uniqueObject[str[i]] === 1) {
+      return str[i];
+    }
+  }
+
+  return "Every character is repeated";
+}
+
+console.log(
+  `23. The first non dup letter in ${str} is ${findNonDuplicate(str, target)}`
+);
+
+// 24. Write a JavaScript function to apply Bubble Sort algorithm.
+
+variable = [12, 345, 4, 546, 122, 84, 98, 64, 9, 1, 3223, 455, 23, 234, 213];
+
+function bubbleSort(a) {
+  let swapped;
+  do {
+    swapped = false;
+    for (i = 0; i < variable.length - 1; i++) {
+      if (variable[i] > variable[i + 1]) {
+        var temp = variable[i];
+        variable[i] = variable[i + 1];
+        variable[i + 1] = temp;
+        swapped = true;
+      }
+    }
+  } while (swapped);
+  variable.reverse();
+}
+
+bubbleSort(variable);
+console.log(variable);
+
+// 25. Write a JavaScript function that accept a list of country names as input and returns the longest country name as output.
+
+variable = ["Australia", "Germany", "United States of America"];
+
+function longestCountryName(variable) {
+  arrayOfLengths = [];
+  for (i = 0; i < variable.length; i++) {
+    arrayOfLengths.push(variable[i].length);
+  }
+
+  longestIndex = arrayOfLengths.indexOf(Math.max(...arrayOfLengths));
+
+  return variable[longestIndex];
+}
+
+console.log(`25. the longest country name is: ${longestCountryName(variable)}`);
+
+// 26. Write a JavaScript function to find longest substring in a given a string without repeating characters.
+
+str = "daahjkdsajowkxnvyq";
+
+function combinateStrUnique(str) {
+  function checkIfDuplicateExists(arr) {
+    return new Set(arr).size !== arr.length;
+  }
+
+  let possibleStrings = [];
+  let comparativeObject = {};
+
+  for (i = 0; i < str.length; i++) {
+    for (j = i + 1; j < str.length + 1; j++) {
+      possibleStrings.push(str.slice(i, j));
+    }
+  }
+
+  for (array of possibleStrings) {
+    if (!checkIfDuplicateExists(array) && array.length > 1) {
+      comparativeObject[array] = array.length;
+    }
+  }
+
+  let resultIndex = Object.values(comparativeObject).indexOf(
+    Math.max(...Object.values(comparativeObject))
+  );
+
+  return Object.keys(comparativeObject)[resultIndex];
+}
+
+console.log(combinateStrUnique(str));
+
+// 27. Write a JavaScript function that returns the longest palindrome in a given string.
+
+str = "dsbobddadio";
+
+function lookForPalindromes(str) {
+  let possibleStrings = [];
+  let comparativeObject = {};
+
+  for (i = 0; i < str.length; i++) {
+    for (j = i + 1; j < str.length + 1; j++) {
+      possibleStrings.push(str.slice(i, j));
+    }
+  }
+
+  for (array of possibleStrings) {
+    if (
+      [...array].join("") === [...array].reverse().join("") &&
+      array.length > 1
+    ) {
+      comparativeObject[array] = array.length;
+    }
+  }
+
+  let resultIndex = Object.values(comparativeObject).indexOf(
+    Math.max(...Object.values(comparativeObject))
+  );
+
+  //   return Object.keys(comparativeObject)[resultIndex];
+  return Object.keys(comparativeObject) + "";
+}
+
+console.log(`27. Palindromes in ${str}: ${lookForPalindromes(str)}`);
+
+// 28. Write a JavaScript program to pass a 'JavaScript function' as parameter
+
+let func = (x) => x * 2;
+variable = [1, 2, 3];
+
+function applyToArray(variable, func) {
+  return variable.map(func);
+}
+
+console.log(
+  `28. from ${variable} to ${applyToArray(variable, func)} with "${func}"`
+);
+
+// 29. Write a JavaScript function to get the function name.
+
+func = console.log;
+
+function getFuncName(func) {
+  return func.name;
+}
+
+console.log(`29. The function's name is ${getFuncName(func)}`);
